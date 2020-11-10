@@ -1,0 +1,21 @@
+- name: check apt last update
+
+  stat: path=/var/cache/apt
+
+  register: apt_cache_stat
+
+
+
+- name: "Update and upgrade apt packages"
+
+  become: true
+
+  apt:
+
+    upgrade: yes
+
+    update_cache: yes
+
+  #Skip this task if we have done this in the last two minutes
+
+  when: ansible_date_time.epoch|float - apt_cache_stat.stat.mtime > 60*2

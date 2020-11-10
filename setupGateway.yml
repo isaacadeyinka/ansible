@@ -1,0 +1,13 @@
+- hosts: server1
+
+  become: true
+
+  roles:
+
+  -  NATGateway
+
+  -  bind9
+
+  -  isc-dhcp-server
+
+
